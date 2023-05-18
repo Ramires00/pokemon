@@ -21,7 +21,7 @@ class _RepositoryPokemon implements RepositoryPokemon {
   String? baseUrl;
 
   @override
-  Future<Pokemon> getPokemon(id) async {
+  Future<Pokemon> get(arg) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -34,7 +34,7 @@ class _RepositoryPokemon implements RepositoryPokemon {
     )
             .compose(
               _dio.options,
-              'api/v2/pokemon/${id}',
+              'api/v2/pokemon/${arg}',
               queryParameters: queryParameters,
               data: _data,
             )
