@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:pokemon/app.dart';
 
-
-void main() {
-  runApp(
-    const GetMaterialApp()
-  );
-}
+void main() => runApp(const App());
