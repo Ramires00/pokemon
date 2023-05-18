@@ -20,4 +20,15 @@ class PokemonData {
   String get next => _next ?? "";
   String get previous => _previous ?? "";
   List<PokemonMetadata> get pokemonMetadatas => _pokemonMetadatas ?? [];
+
+  factory PokemonData.fromJson(Map json) => PokemonData(
+        count: json['count'],
+        next: json['next'],
+        pokemonMetadatas: (json['results'] as List)
+            .map(
+              (pokemonMetadata) => PokemonMetadata.fromJson(pokemonMetadata),
+            )
+            .toList(),
+        previous: json['previous'],
+      );
 }
