@@ -7,9 +7,8 @@ import 'package:dio/dio.dart';
 part 'repository_pokemon_data.g.dart';
 
 @RestApi(baseUrl: baseUrl)
-abstract class RepositoryPokemonData extends RepositoryPath<PokemonData> {
-  factory RepositoryPokemonData(Dio dio, {String baseUrl}) =
-      _RepositoryPokemonData;
+abstract class RepositoryPokemonData implements RepositoryPath<PokemonData> {
+  factory RepositoryPokemonData(Dio dio, {String baseUrl}) = _RepositoryPokemonData;
 
   @override
   @GET("$endpointPokemonData?offset={arg}")
