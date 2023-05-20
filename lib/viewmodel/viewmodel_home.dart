@@ -13,15 +13,15 @@ class ViewModelHome extends GetxController {
   @override
   void onInit() {
     pagingController.addPageRequestListener((_) async {
-      fetchNewPage();
+      await fetchNewPage();
       pageKey.value = pageKey.value + 20;
-      refresh();
     });
 
     super.onInit();
   }
 
-  final PagingController pagingController = PagingController<int, PokemonMetadata>(
+  final PagingController<int, PokemonMetadata> pagingController =
+      PagingController<int, PokemonMetadata>(
     firstPageKey: 0,
   );
 
