@@ -4,4 +4,6 @@ extension ExtString on String {
     String pokemonId = substringPokemon[1].replaceAll('/', '');
     return "$pokemonId.png";
   }
+
+  String get firstCapital => this[0].toUpperCase() + substring(1, length);
 }
