@@ -1,4 +1,3 @@
-import 'package:get/get.dart';
 import 'package:pokemon/core/interfaces/usecase.dart';
 import 'package:pokemon/core/model/pokemon_data.dart';
 import 'package:pokemon/repo/repository_pokemon_data.dart';
@@ -8,7 +7,7 @@ class UsecaseGetPokemonData implements Usecase<PokemonData> {
 
   final RepositoryPokemonData repo;
 
-  Rx<PokemonData> data = PokemonData().obs;
+  PokemonData data = PokemonData();
 
   @override
   Future<PokemonData> execute([dynamic args]) => repo.get(args).then<PokemonData>(
@@ -16,7 +15,7 @@ class UsecaseGetPokemonData implements Usecase<PokemonData> {
       );
 
   Future<PokemonData> onExecuteReturn(PokemonData newValueFetched) async {
-    data.value = newValueFetched;
+    data = newValueFetched;
     return newValueFetched;
   }
 }
