@@ -8,13 +8,13 @@ class ViewModelHome extends GetxController {
 
   final UsecaseGetPokemonData _usecase;
 
-  RxInt pageKey = RxInt(0);
+  int pageKey = 0;
 
   @override
   void onInit() {
     pagingController.addPageRequestListener((_) async {
       await fetchNewPage();
-      pageKey.value = pageKey.value + 20;
+      pageKey = pageKey + 20;
     });
 
     super.onInit();
@@ -27,16 +27,15 @@ class ViewModelHome extends GetxController {
 
   Future fetchNewPage() async {
     await _usecase.execute(
-      pageKey.value.toString(),
+      pageKey.toString(),
     );
 
     if (_hasNextPage()) {
-      pagingController.appendPage(_usecase.data.value.pokemonMetadatas, pageKey.value);
+      pagingController.appendPage(_usecase.data.pokemonMetadatas, pageKey);
     } else {
-      pagingController.appendLastPage(_usecase.data.value.pokemonMetadatas);
+      pagingController.appendLastPage(_usecase.data.pokemonMetadatas);
     }
-    refresh();
   }
 
-  bool _hasNextPage() => _usecase.data.value.next.isNotEmpty;
+  bool _hasNextPage() => _usecase.data.next.isNotEmpty;
 }
