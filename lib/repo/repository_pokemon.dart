@@ -7,7 +7,7 @@ import 'package:dio/dio.dart';
 part 'repository_pokemon.g.dart';
 
 @RestApi(baseUrl: baseUrl)
-abstract class RepositoryPokemon extends RepositoryPath<Pokemon> {
+abstract class RepositoryPokemon implements RepositoryPath<Pokemon> {
   factory RepositoryPokemon(Dio dio, {String baseUrl}) = _RepositoryPokemon;
 
   @override
