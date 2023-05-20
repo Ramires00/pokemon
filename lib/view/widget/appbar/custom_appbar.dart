@@ -3,15 +3,17 @@ import 'package:pokemon/view/widget/appbar/divider_appbar.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({
-    this.title,
+    this.title = const SizedBox(),
     this.color = Colors.blue,
+    this.dividerColor = Colors.white,
     super.key,
   });
 
-  final String? title;
+  final Widget? title;
   final Color? color;
+  final Color? dividerColor;
 
-  static const double toolbarHeight = kToolbarHeight + 44;
+  static const double toolbarHeight = kToolbarHeight;
 
   @override
   Widget build(BuildContext context) => PreferredSize(
@@ -20,23 +22,23 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-                margin: EdgeInsets.zero,
-                padding: EdgeInsets.zero,
-                height: toolbarHeight,
-                color: color,
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 30),
-                  child: Text(
-                    title ?? "",
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                )),
-            const DividerAppbar()
+              height: toolbarHeight,
+              width: double.infinity,
+              margin: EdgeInsets.zero,
+              padding: EdgeInsets.zero,
+              color: color,
+              child: Center(
+                child: title,
+              ),
+            ),
+            DividerAppbar(
+              color: dividerColor,
+            )
           ],
         ),
       );
 
   @override
-  Size get preferredSize => const Size(double.infinity, CustomAppBar.toolbarHeight);
+  Size get preferredSize =>
+      const Size(double.infinity, CustomAppBar.toolbarHeight);
 }
