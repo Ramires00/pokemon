@@ -10,6 +10,8 @@ class ViewModelHome extends GetxController {
 
   int pageKey = 0;
 
+  RxBool isLoading = RxBool(false);
+
   @override
   void onInit() {
     pagingController.addPageRequestListener((_) async {
