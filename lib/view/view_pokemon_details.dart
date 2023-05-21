@@ -14,44 +14,40 @@ class ViewPokemonDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: CustomAppBar(
-          color: context.colors.background,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 20),
-                child: GestureDetector(
-                  onTap: () => Navigator.pop(context),
-                  child: const Icon(
-                    Icons.arrow_back_ios,
+        appBar: _appbar(context),
+        backgroundColor: context.colors.background,
+        body: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: Center(
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.75,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: context.colors.onSecondary,
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          _header(context),
+                          _tileNumber(),
+                          _tileHeight(),
+                          _tileWeight(),
+                          _expansionTypes(),
+                          _expansionAbilities(),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              )
-            ],
-          ),
-        ),
-        backgroundColor: context.colors.background,
-        body: Center(
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width * 0.5,
-            child: Container(
-              decoration: BoxDecoration(
-                  border: Border.all(
-                color: context.colors.onSecondary,
-              )),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _header(context),
-                  _tileNumber(),
-                  _tileHeight(),
-                  _tileWeight()
-                ],
               ),
-            ),
-          ),
+            )
+          ],
         ),
       );
 
@@ -101,6 +97,55 @@ class ViewPokemonDetails extends StatelessWidget {
         title: const Text("Peso"),
         trailing: Text(
           _viewModelPokemonDetails.pokemon.weight.toString(),
+        ),
+      );
+
+  _expansionTypes() => ExpansionTile(
+        expandedAlignment: Alignment.centerLeft,
+        title: const Text("Tipos"),
+        children: [
+          ..._viewModelPokemonDetails.pokemon.types
+              .map(
+                (type) => ListTile(
+                  title: Text((type.name as String).firstCapital),
+                ),
+              )
+              .toList()
+        ],
+      );
+
+  _expansionAbilities() => ExpansionTile(
+        title: const Text("Habilidades"),
+        expandedAlignment: Alignment.centerLeft,
+        children: [
+          ..._viewModelPokemonDetails.pokemon.abilities
+              .map(
+                (ability) => ListTile(
+                  title: Text(
+                    (ability.name as String).firstCapital,
+                  ),
+                ),
+              )
+              .toList()
+        ],
+      );
+
+  _appbar(BuildContext context) => CustomAppBar(
+        color: context.colors.background,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: GestureDetector(
+                onTap: () => Navigator.pop(context),
+                child: const Icon(
+                  Icons.arrow_back_ios,
+                ),
+              ),
+            )
+          ],
         ),
       );
 }
