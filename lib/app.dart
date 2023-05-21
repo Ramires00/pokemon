@@ -11,6 +11,8 @@ class App extends GetMaterialApp {
 
   @override
   ThemeData? get theme => ThemeData(
+        splashColor: Colors.transparent,
+        splashFactory: NoSplash.splashFactory,
         colorScheme: AppColors.colorScheme,
         scrollbarTheme: const ScrollbarThemeData(
           thumbColor: MaterialStatePropertyAll(AppColors.onSecondary),
