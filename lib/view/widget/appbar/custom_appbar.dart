@@ -16,27 +16,29 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   static const double toolbarHeight = kToolbarHeight;
 
   @override
-  Widget build(BuildContext context) => PreferredSize(
-        preferredSize: const Size(double.infinity, CustomAppBar.toolbarHeight),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              height: toolbarHeight,
-              width: double.infinity,
-              margin: EdgeInsets.zero,
-              padding: EdgeInsets.zero,
-              color: color,
-              child: Center(
-                child: title,
+  Widget build(BuildContext context) => SafeArea(
+    child: PreferredSize(
+          preferredSize: const Size(double.infinity, CustomAppBar.toolbarHeight),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                height: toolbarHeight,
+                width: double.infinity,
+                margin: EdgeInsets.zero,
+                padding: EdgeInsets.zero,
+                color: color,
+                child: Center(
+                  child: title,
+                ),
               ),
-            ),
-            DividerAppbar(
-              color: dividerColor,
-            )
-          ],
+              DividerAppbar(
+                color: dividerColor,
+              )
+            ],
+          ),
         ),
-      );
+  );
 
   @override
   Size get preferredSize =>
