@@ -5,5 +5,11 @@ extension ExtString on String {
     return "$pokemonId.png";
   }
 
+  String get pokemonId {
+    List<String> substringPokemon = split('pokemon');
+    String pokemonId = substringPokemon[1].replaceAll('/', '');
+    return pokemonId;
+  }
+
   String get firstCapital => this[0].toUpperCase() + substring(1, length);
 }
