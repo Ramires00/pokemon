@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:pokemon/view/style/colors.dart';
 import 'package:pokemon/view/view_home.dart';
 
 class App extends GetMaterialApp {
@@ -7,4 +8,12 @@ class App extends GetMaterialApp {
 
   @override
   Widget? get home => ViewHome();
+
+  @override
+  ThemeData? get theme => ThemeData(
+        colorScheme: AppColors.colorScheme,
+        scrollbarTheme: const ScrollbarThemeData(
+          thumbColor: MaterialStatePropertyAll(AppColors.onSecondary),
+        ),
+      );
 }
