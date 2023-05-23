@@ -9,8 +9,7 @@ import 'package:pokemon/viewmodel/viewmodel_pokemon_details.dart';
 class ViewPokemonDetails extends StatelessWidget {
   ViewPokemonDetails({super.key});
 
-  final ViewModelPokemonDetails _viewModelPokemonDetails =
-      Get.find<ViewModelPokemonDetails>();
+  final ViewModelPokemonDetails _viewModelPokemonDetails = Get.find<ViewModelPokemonDetails>();
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -51,7 +50,7 @@ class ViewPokemonDetails extends StatelessWidget {
         ),
       );
 
-  _header(BuildContext context) => Padding(
+  Widget _header(BuildContext context) => Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -68,7 +67,7 @@ class ViewPokemonDetails extends StatelessWidget {
         ),
       );
 
-  _avatar(BuildContext context) => CircleAvatar(
+  Widget _avatar(BuildContext context) => CircleAvatar(
         radius: 100,
         backgroundColor: context.colors.onSecondary,
         child: Padding(
@@ -79,28 +78,28 @@ class ViewPokemonDetails extends StatelessWidget {
         ),
       );
 
-  _tileNumber() => ListTile(
+  Widget _tileNumber() => ListTile(
         title: const Text("Número"),
         trailing: Text(
           _viewModelPokemonDetails.pokemon.id.toString(),
         ),
       );
 
-  _tileHeight() => ListTile(
+  Widget _tileHeight() => ListTile(
         title: const Text("Altura"),
         trailing: Text(
           _viewModelPokemonDetails.pokemon.height.toString(),
         ),
       );
 
-  _tileWeight() => ListTile(
+  Widget _tileWeight() => ListTile(
         title: const Text("Peso"),
         trailing: Text(
           _viewModelPokemonDetails.pokemon.weight.toString(),
         ),
       );
 
-  _expansionTypes() => ExpansionTile(
+  Widget _expansionTypes() => ExpansionTile(
         expandedAlignment: Alignment.centerLeft,
         title: const Text("Tipos"),
         children: [
@@ -114,7 +113,7 @@ class ViewPokemonDetails extends StatelessWidget {
         ],
       );
 
-  _expansionAbilities() => ExpansionTile(
+  Widget _expansionAbilities() => ExpansionTile(
         title: const Text("Habilidades"),
         expandedAlignment: Alignment.centerLeft,
         children: [
@@ -130,7 +129,7 @@ class ViewPokemonDetails extends StatelessWidget {
         ],
       );
 
-  _appbar(BuildContext context) => CustomAppBar(
+  PreferredSizeWidget _appbar(BuildContext context) => CustomAppBar(
         color: context.colors.background,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
