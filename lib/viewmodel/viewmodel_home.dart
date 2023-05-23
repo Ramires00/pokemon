@@ -1,16 +1,16 @@
 import 'package:get/get.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:pokemon/core/interfaces/viewmodel.dart';
+import 'package:pokemon/core/model/pokemon_data.dart';
 import 'package:pokemon/core/model/pokemon_metadata.dart';
 import 'package:pokemon/usecase/usecase_get_pokemondata.dart';
 
-class ViewModelHome extends GetxController {
+class ViewModelHome extends GetxController with ViewModel<PokemonData> {
   ViewModelHome({required UsecaseGetPokemonData usecase}) : _usecase = usecase;
 
   final UsecaseGetPokemonData _usecase;
 
   int pageKey = 0;
-
-  RxBool isLoading = RxBool(false);
 
   @override
   void onInit() {
@@ -28,9 +28,11 @@ class ViewModelHome extends GetxController {
   );
 
   Future fetchNewPage() async {
-    await _usecase.execute(
-      pageKey.toString(),
-    );
+    await _usecase
+        .execute(
+          pageKey.toString(),
+        )
+        .onError(onError);
 
     if (_hasNextPage()) {
       pagingController.appendPage(_usecase.data.pokemonMetadatas, pageKey);
