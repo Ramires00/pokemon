@@ -5,8 +5,8 @@ class AppColors {
   static const Color onPrimary = Color(0xFF140005);
   static const Color secondary = Color(0xFF7E7C73);
   static const Color onSecondary = Color(0xFFBBC4C2);
-  static const Color surface = Color(0xFF);
-  static const Color onSurface = Color(0xFF);
+  static const Color surface = Color(0xFFFFFFFF);
+  static const Color onSurface = Color(0xFFFFFFFF);
   static const Color error = Colors.red;
   static const Color onError = Colors.redAccent;
   static const Color background = Color(0xFF4E545C);
