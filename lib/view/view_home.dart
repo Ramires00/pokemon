@@ -17,8 +17,7 @@ class ViewHome extends StatelessWidget {
   ViewHome({Key? key}) : super(key: key);
 
   final ViewModelHome _viewModelHome = Get.find<ViewModelHome>();
-  final ViewModelPokemonDetails _viewModelPokemonDetails =
-      Get.find<ViewModelPokemonDetails>();
+  final ViewModelPokemonDetails _viewModelPokemonDetails = Get.find<ViewModelPokemonDetails>();
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -32,7 +31,7 @@ class ViewHome extends StatelessWidget {
           color: context.colors.background,
         ),
         body: Obx(
-          () => _viewModelHome.isLoading.value
+          () => _viewModelPokemonDetails.isLoading.value
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
@@ -45,45 +44,47 @@ class ViewHome extends StatelessWidget {
         builderDelegate: _builderDelegate(context),
       );
 
-  PagedChildBuilderDelegate<PokemonMetadata> _builderDelegate(
-          BuildContext ctx) =>
+  PagedChildBuilderDelegate<PokemonMetadata> _builderDelegate(BuildContext ctx) =>
       PagedChildBuilderDelegate<PokemonMetadata>(
         itemBuilder: (context, item, index) => Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ListTile(
-              onTap: () {
-                _viewModelHome.isLoading.value = true;
-                _viewModelPokemonDetails
-                    .fetchPokemon(
-                      item.url.pokemonId,
-                    )
-                    .then(
-                      (_) => Navigator.push(
-                        ctx,
-                        CupertinoPageRoute(
-                          builder: (context) => ViewPokemonDetails(),
-                        ),
-                      ),
-                    )
-                    .then(
-                      (_) => _viewModelHome.isLoading.value = false,
-                    );
-              },
-              contentPadding: const EdgeInsets.all(20),
-              leading: _circleAvatar(context, item),
-              title: Text(item.name.firstCapital),
-            ),
-            const DividerAppbar(),
+            ..._pokemonTile(item, ctx),
           ],
         ),
       );
 
-  _circleAvatar(BuildContext context, PokemonMetadata item) => CircleAvatar(
+  Future<void> _onPokemonTapped(PokemonMetadata item, BuildContext ctx) async {
+    _viewModelPokemonDetails.isLoading.value = true;
+    _viewModelPokemonDetails
+        .fetchPokemon(
+          item.url.pokemonId,
+        )
+        .then(
+          (_) => Navigator.push(
+            ctx,
+            CupertinoPageRoute(
+              builder: (context) => ViewPokemonDetails(),
+            ),
+          ),
+        );
+  }
+
+  Widget _circleAvatar(BuildContext context, PokemonMetadata item) => CircleAvatar(
         radius: 30,
         backgroundColor: context.colors.onSecondary,
         child: CachedNetworkImage(
           imageUrl: baseUrlSprite + item.url.pokemonImage,
         ),
       );
+
+  List<Widget> _pokemonTile(PokemonMetadata item, BuildContext ctx) => [
+        ListTile(
+          onTap: () => _onPokemonTapped(item, ctx),
+          contentPadding: const EdgeInsets.all(20),
+          leading: _circleAvatar(ctx, item),
+          title: Text(item.name.firstCapital),
+        ),
+        const DividerAppbar(),
+      ];
 }
